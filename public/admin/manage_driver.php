@@ -32,9 +32,27 @@
 				if(empty($allDrivers)){
 					echo '<div class="message"><h3>There are no Drivers</h3></div>';
 				}else{
-				}
-				echo '<a href="new_driver.php">Add a new driver</a>';
 			?>
+			<table>
+      			<thead>
+				  <tr>
+				    <th style="text-align: left; width: 200px;">Username</th>
+				    <th colspan="2" style="text-align: left;">Actions</th>
+				  </tr>
+				</thead>
+				<tbody>
+					<?php
+				    	foreach ($allDrivers as $key => $driver) {
+				    ?>
+			        <tr>
+				    	<td><?php echo substr(htmlentities($driver->name),0,10) ?></td>
+				        <td><a href="edit_driver.php?id=<?php echo urlencode($driver->id)?>">Edit</a></td>
+				        <td><a href="delete_driver.php?id=<?php echo urlencode($driver->id)?>" onclick="return confirm('Are you sure?');">Delete</a></td>
+				    </tr>
+				    <?php } } ?>
+        		</tbody>
+    		</table>
+    		<a href="new_driver.php">Add a new driver</a>
 		</div>
 	</div>
 <?php

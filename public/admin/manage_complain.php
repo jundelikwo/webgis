@@ -37,14 +37,15 @@
 				}else{
 			?>
 			<table>
-		    	<tbody>
+		    	<thead>
 			      	<tr>
 				        <th style="text-align: left">User</th>
 				        <th style="text-align: left">&nbsp;Complain</th>
 				        <th style="text-align: left">&nbsp;Date</th>
 				        <th colspan="2" style="text-align: left;">&nbsp;Actions</th>
-
 				    </tr>
+				</thead>
+				<tbody>
 				    <?php
 				    	foreach ($allComplains as $key => $complain) {
 				    ?>
