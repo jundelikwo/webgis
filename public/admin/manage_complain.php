@@ -2,7 +2,7 @@
 	require_once '../../includes/config.php';
 	require_once LIB_PATH.DS.'Session.php';
 	require_once LIB_PATH.DS.'Complain.php';
-	if(!$session->isLoggedIn() && !$session->isAdmin()){
+	if(!$session->isLoggedIn() || !$session->isAdmin()){
 		$link = SITE_LINK.'admin/login.php';
 		header("Location: {$link}");
 	}
@@ -29,7 +29,7 @@
 			<h2>Manage Complains</h2>
 			<?php
 				if(empty($allComplains)){
-					echo '<h3>There are no Complains</h3>';
+					echo '<div class="message"><h3>There are no Complains</h3></div>';
 				}else{
 			?>
 			<table>

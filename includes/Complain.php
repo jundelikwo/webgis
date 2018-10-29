@@ -25,6 +25,13 @@
             //$this->formValidation = new Validate(["name" => 255, "price" => 11, "description" => 0]);
         }
 
+        public function markAsViewed(){
+            if(empty($this->view)){
+                $this->view = 1;
+                $this->save();
+            }
+        }
+
         /*protected function validate(){
             $this->formValidation->validate_presences();
             $this->formValidation->validate_max_length();

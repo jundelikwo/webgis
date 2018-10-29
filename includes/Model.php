@@ -152,7 +152,6 @@
             $sql .= " WHERE id=" . $this->id;
             $smt = $database->connection->prepare($sql);
             foreach($attributes as $attribute => $value){
-                echo $attribute . " : " . $this->$value . "<br>";
                 $smt->bindParam($attribute, $this->$value);
             }
             //$smt->bindParam(count($attributes),$this->id);
