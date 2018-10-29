@@ -1,0 +1,1 @@
+<li><a href="<?php echo SITE_LINK ?>">Home</a></li>
