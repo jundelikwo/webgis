@@ -4,7 +4,7 @@
     require_once("Database.php");
 
     class Complain extends Model{
-        protected static $tableName = "complain";
+        protected static $tableName = "complains";
         protected static $dbFields = ["id","name","phone","complain","created","view"];
         //public $errors = [];
         //private $formValidation;
@@ -12,7 +12,7 @@
         public $name;
         public $phone;
         public $complain;
-        protected $created;
+        public $created;
         protected $view = 0;
 
         function __construct($name='',$phone='',$complain=''){
