@@ -5,13 +5,14 @@
 		$link = SITE_LINK.'admin/login.php';
 		header("Location: {$link}");
 	}
-	$layout_context = 'admin';
+	$layout_context = $session->isAdmin() ? 'admin' : '';
 	require_once LAYOUT_PATH.DS.'header.php';
 ?>
 
 	<div id="main">
 		<div id="navigation">
 			<ul class="subjects">
+				<li><a href="<?php echo SITE_LINK ?>">Home</a></li>
 				<?php
 					if($session->isAdmin()){
 						require_once LAYOUT_PATH.DS.'admin_nav.php';
