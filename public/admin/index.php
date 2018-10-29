@@ -1,15 +1,24 @@
 <?php
 	require_once '../../includes/config.php';
+	require_once LIB_PATH.DS.'Session.php';
+	if(!$session->isLoggedIn()){
+		$link = SITE_LINK.'admin/login.php';
+		header("Location: {$link}");
+	}
 	$layout_context = 'admin';
 	require_once LAYOUT_PATH.DS.'header.php';
 ?>
 
 	<div id="main">
-	<div id="navigation">
+		<div id="navigation">
 			<ul class="subjects">
-				<li><a href="index.php?subject=1">Manage Drivers</a></li>
-				<li><a href="index.php?subject=2">Manage Complains</a></li>
-				<li><a href="index.php?subject=3">Manage Bins</a></li>
+				<?php
+					if($session->isAdmin()){
+						require_once LAYOUT_PATH.DS.'admin_nav.php';
+					}else{
+						require_once LAYOUT_PATH.DS.'driver_nav.php';
+					}
+				?>
 			</ul>
 		</div>
 		<div id="page">
