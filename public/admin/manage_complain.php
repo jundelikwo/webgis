@@ -6,6 +6,7 @@
 		$link = SITE_LINK.'admin/login.php';
 		header("Location: {$link}");
 	}
+	$message = $session->getFlashValue('message');
 	$allComplains = Complain::findAll();
 	$layout_context = 'admin';
 	require_once LAYOUT_PATH.DS.'header.php';
@@ -28,6 +29,9 @@
 		<div id="page">
 			<h2>Manage Complains</h2>
 			<?php
+				if($message){
+					echo '<div class="message">' . $message . '</div>';
+				}
 				if(empty($allComplains)){
 					echo '<div class="message"><h3>There are no Complains</h3></div>';
 				}else{
@@ -48,8 +52,8 @@
 				        <td><?php echo substr(htmlentities($complain->name),0,10) ?></td>
 				        <td>&nbsp;<?php echo substr(htmlentities($complain->complain),0,20) ?>...</td>
 				        <td>&nbsp;<?php echo htmlentities(strftime("%d-%b-%Y %I:%M %p", strtotime($complain->created)))?></td>
-				        <td>&nbsp;<a href="view_comment.php?id=<?php echo urlencode($complain->id)?>">View</a></td>
-				        <td>&nbsp;<a href="delete_comment.php?id=<?php echo urlencode($complain->id)?>" onclick="return confirm('Are you sure?');">Delete</a></td>
+				        <td>&nbsp;<a href="view_complain.php?id=<?php echo urlencode($complain->id)?>">View</a></td>
+				        <td>&nbsp;<a href="delete_complain.php?id=<?php echo urlencode($complain->id)?>" onclick="return confirm('Are you sure?');">Delete</a></td>
 			      	</tr>
 			    	<?php } } ?>
 		        </tbody>
