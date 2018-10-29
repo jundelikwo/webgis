@@ -14,6 +14,7 @@
     const SITE_LINK = "/slyvia/public/";
 
     const LIB_PATH = SITE_ROOT.DS.'includes';
+    const LAYOUT_PATH = SITE_ROOT.DS.'layouts';
 
     $CURRENT_TIME = strftime("%Y-%m-%d %H:%M:%S", time());
 ?>

@@ -11,7 +11,7 @@
 
         function __construct(){
             session_start();
-            $this->flashValues = $_SESSION['flash'];
+            $this->flashValues = isset($_SESSION['flash']) ? $_SESSION['flash'] : [];
             $_SESSION['flash'] = [];
             $this->checkLogin();
         }

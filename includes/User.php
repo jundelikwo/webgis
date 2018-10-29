@@ -7,26 +7,14 @@
 
         protected static $tableName = "users";
         public static $error;
-        protected static $dbFields = ["id","name","password","phone","email","role"];
+        protected static $dbFields = ["id","name","password","username","role"];
         public $errors = [];
         private $formValidation;
         public $id;
         public $role = "user";
         public $password;
         public $name;
-        public $phone;
-        public $email;
-
-        public function save($msg=false){
-            global $session;
-            $this->validate();
-            if(!$this->errors){
-                Parent::save('Your Profile has been saved');
-            }else{
-                $session->flash('errors',$this->errors);
-                $session->flash('form',$_POST);
-            }
-        }
+        public $username;
 
         protected function create(){
             global $session;
@@ -42,22 +30,15 @@
             $session->login($this);
         }
 
-        public static function authenticate($email, $password){
+        public static function authenticate($username, $password){
             global $database;
-            if(!Session::istokenValid()){
-                // It is actually CSRF token validation that failed 
-                // but this is not a helpful message to the user
-                static::$error = "CSRF token validation failed";
-                return false;
-            }
             
-            $sql = "SELECT * FROM users WHERE email = ?";
+            $sql = "SELECT * FROM users WHERE username = ?";
             $smt = $database->connection->prepare($sql);
-            $smt->bindParam(1, $email);
+            $smt->bindParam(1, $username);
             $smt->execute();
             $result = $smt->fetchAll(PDO::FETCH_CLASS);
             if(!$result){
-                static::$error = "Email and password are incorrect";
                 return false;
             }
             if(password_verify($password, $result[0]->password)){
@@ -67,7 +48,6 @@
                 $user->role = $result[0]->role;
                 return $user;
             }
-            static::$error = "Email and password are incorrect";
             return false;
         }
     }
