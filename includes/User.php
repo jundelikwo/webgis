@@ -11,7 +11,7 @@
         public $errors = [];
         private $formValidation;
         public $id;
-        public $role = "user";
+        public $role = "driver";
         public $password;
         public $name;
         public $username;
@@ -20,7 +20,6 @@
             global $session;
             $this->password = password_hash($this->password, PASSWORD_BCRYPT , ["cost" => 10]);
             Parent::create();
-            $session->login($this);
         }
 
         protected function update($msg){
