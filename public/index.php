@@ -1,4 +1,19 @@
- <!DOCTYPE html>
+<?php
+  require_once '../includes/config.php';
+  require_once LIB_PATH.DS.'Database.php';
+
+  if($_SERVER['REQUEST_METHOD'] === "POST"){
+    require_once LIB_PATH.DS.'Complain.php';
+    $name = isset($_POST['name']) ? $_POST['name']: '';
+    $phone = isset($_POST['phone']) ? $_POST['phone']: '';
+    $complain = isset($_POST['complain']) ? $_POST['complain']: '';
+    $newComplain = new Complain($name,$phone,$complain);
+    $newComplain->save();
+    $link = SITE_LINK;
+    header("Location: {$link}");
+  }
+?>
+<!DOCTYPE html>
 <html lang="en">
 
   <head>
@@ -79,15 +94,15 @@
             <i class="far fa-paper-plane fa-2x mb-2 text-white"></i>
             <h2 class="text-white mb-5">Lay A Complain!</h2>
 
-            <form class="form-inline d-flex">
+            <form class="form-inline d-flex" method="POST" action="<?php echo SITE_LINK?>">
               <div class="w-100 d-flex m-2">
-                <input type="text" name="name" class="form-control flex-fill mr-0 mr-sm-2 mb-3 mb-sm-0" id="inputEmail" placeholder="Enter your Name">
+                <input type="text" name="name" class="form-control flex-fill mr-0 mr-sm-2 mb-3 mb-sm-0" id="inputEmail" placeholder="Enter your Name" required>
               </div>
               <div class="w-100 d-flex m-2">
-                <input type="number" name="email" class="form-control flex-fill mr-0 mr-sm-2 mb-3 mb-sm-0" id="inputEmail" placeholder="Enter your phone number">
+                <input type="number" name="phone" class="form-control flex-fill mr-0 mr-sm-2 mb-3 mb-sm-0" id="inputEmail" placeholder="Enter your phone number" required>
               </div>
               <div class="w-100 d-flex m-2">
-                <textarea name="complain" class="w-100" style="height: 250px" placeholder="What are you complaining about"></textarea>
+                <textarea name="complain" class="w-100" style="height: 250px" placeholder="What are you complaining about" required></textarea>
               </div>
               <button type="submit" class="btn btn-primary mx-auto">Submit</button>
             </form>
@@ -96,7 +111,6 @@
         </div>
       </div>
     </section>
-
 
     <!-- Footer -->
     <footer class="bg-black small text-center text-white-50">
