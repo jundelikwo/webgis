@@ -7,7 +7,7 @@
         protected static $tableName = "areas";
         protected static $dbFields = ["id","name","driverId"];
         public $id;
-        public $name;
+        public $name=null;
         public $driverId;
 
         function __construct($name='',$driverId=null){
@@ -15,7 +15,7 @@
             $this->driverId = $driverId;
         }
 
-        protected function create(){
+        /*protected function create(){
             global $database;
 
             $sql = 'INSERT INTO ' . static::$tableName . " (name) VALUES (?)";
@@ -24,7 +24,7 @@
             $smt->bindParam(1, $this->name);
             $smt->execute();
             $this->id = $database->connection->lastInsertId();
-        }
+        }*/
     }
 
 ?>
