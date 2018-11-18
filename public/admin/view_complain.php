@@ -37,7 +37,7 @@
 					echo 'Phone Number: '.htmlentities($complain->phone).'<br>';
 					echo 'Date: '.htmlentities(strftime("%d-%b-%Y %I:%M %p", strtotime($complain->created))).'<br>';
 					echo 'Complain: <div class="view-content">'.htmlentities($complain->complain).'</div>';
-					echo '<a href="' . SITE_LINK.'admin/delete_complain.php?id=' . urlencode($complain->id) .'" onclick="' . "return confirm('Are you sure?');".'">Delete This Comment</a>';
+					echo '<a href="' . SITE_LINK.'admin/delete_complain.php?id=' . urlencode($complain->id) .'" onclick="' . "return confirm('Are you sure?');".'">Delete This Complain</a>';
 				}
 			?>
 		</div>
