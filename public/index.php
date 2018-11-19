@@ -1,17 +1,20 @@
 <?php
   require_once '../includes/config.php';
   require_once LIB_PATH.DS.'Database.php';
+  require_once LIB_PATH.DS.'Area.php';
 
   if($_SERVER['REQUEST_METHOD'] === "POST"){
     require_once LIB_PATH.DS.'Complain.php';
     $name = isset($_POST['name']) ? $_POST['name']: '';
     $phone = isset($_POST['phone']) ? $_POST['phone']: '';
     $complain = isset($_POST['complain']) ? $_POST['complain']: '';
-    $newComplain = new Complain($name,$phone,$complain);
+    $area = isset($_POST['area']) ? $_POST['area']: 0;
+    $newComplain = new Complain($name,$phone,$complain,$area);
     $newComplain->save();
     $link = SITE_LINK;
     header("Location: {$link}");
   }
+  $allAreas = Area::findAll();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -103,6 +106,16 @@
               </div>
               <div class="w-100 d-flex m-2">
                 <input type="number" name="phone" class="form-control flex-fill mr-0 mr-sm-2 mb-3 mb-sm-0" id="inputEmail" placeholder="Enter your phone number" required>
+              </div>
+              <div class="w-100 d-flex m-2">
+                <select name="area" class="form-control flex-fill mr-0 mr-sm-2 mb-3 mb-sm-0" required>
+                  <option>Select a School Area</option>
+                  <?php
+                    foreach ($allAreas as $key => $area) {
+                      echo "<option value='" . $area->id . "'>" . htmlentities($area->name) . "</option>";
+                    }
+                  ?>
+                </select>
               </div>
               <div class="w-100 d-flex m-2">
                 <textarea name="complain" class="w-100" style="height: 250px" placeholder="What are you complaining about" required></textarea>

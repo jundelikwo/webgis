@@ -5,7 +5,7 @@
 
     class Complain extends Model{
         protected static $tableName = "complains";
-        protected static $dbFields = ["id","name","phone","complain","created","view"];
+        protected static $dbFields = ["id","name","phone","complain","created","view","areaId"];
         //public $errors = [];
         //private $formValidation;
         public $id;
@@ -13,14 +13,16 @@
         public $phone;
         public $complain;
         public $created;
+        public $areaId=0;
         protected $view = 0;
 
-        function __construct($name='',$phone='',$complain=''){
+        function __construct($name='',$phone='',$complain='',$areaId=0){
             global $session;
             global $CURRENT_TIME;
             $this->name = $name;
             $this->phone = $phone;
             $this->complain = $complain;
+            $this->areaId = $areaId;
             $this->created = $CURRENT_TIME;
             //$this->formValidation = new Validate(["name" => 255, "price" => 11, "description" => 0]);
         }

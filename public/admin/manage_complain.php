@@ -2,11 +2,17 @@
 	require_once '../../includes/config.php';
 	require_once LIB_PATH.DS.'Session.php';
 	require_once LIB_PATH.DS.'Complain.php';
+	require_once LIB_PATH.DS.'Area.php';
 	if(!$session->isLoggedIn() || !$session->isAdmin()){
 		$link = SITE_LINK.'admin/login.php';
 		header("Location: {$link}");
 	}
 	$message = $session->getFlashValue('message');
+	$allAreas = Area::findAll();
+	$areas = [];
+	foreach ($allAreas as $key => $area) {
+		$areas[$area->id] = $area->name;
+	}
 	$allComplains = Complain::findAll();
 	$layout_context = 'admin';
 	require_once LAYOUT_PATH.DS.'header.php';
@@ -40,6 +46,7 @@
 		    	<thead>
 			      	<tr>
 				        <th style="text-align: left">User</th>
+				        <th style="text-align: left">&nbsp;Area</th>
 				        <th style="text-align: left">&nbsp;Complain</th>
 				        <th style="text-align: left">&nbsp;Date</th>
 				        <th colspan="2" style="text-align: left;">&nbsp;Actions</th>
@@ -51,6 +58,12 @@
 				    ?>
 			        <tr>
 				        <td><?php echo substr(htmlentities($complain->name),0,10) ?></td>
+				        <td><?php 
+				        		if(array_key_exists($complain->areaId, $areas)){
+				        			echo htmlentities($areas[$complain->areaId]);
+				        		}
+				        	?>
+				        </td>
 				        <td>&nbsp;<?php echo substr(htmlentities($complain->complain),0,20) ?>...</td>
 				        <td>&nbsp;<?php echo htmlentities(strftime("%d-%b-%Y %I:%M %p", strtotime($complain->created)))?></td>
 				        <td>&nbsp;<a href="view_complain.php?id=<?php echo urlencode($complain->id)?>">View</a></td>

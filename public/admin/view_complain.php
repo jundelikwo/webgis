@@ -1,6 +1,7 @@
 <?php
 	require_once '../../includes/config.php';
 	require_once LIB_PATH.DS.'Session.php';
+	require_once LIB_PATH.DS.'Area.php';
 	require_once LIB_PATH.DS.'Complain.php';
 	if(!$session->isLoggedIn() || !$session->isAdmin()){
 		$link = SITE_LINK.'admin/login.php';
@@ -8,6 +9,7 @@
 	}
 	$id = isset($_GET['id']) ? $_GET['id'] : 0;
 	$complain = Complain::findById($id);
+	$area = Area::findById($complain->areaId);
 	$layout_context = 'admin';
 	require_once LAYOUT_PATH.DS.'header.php';
 ?>
@@ -35,6 +37,9 @@
 					echo '<h2>Complain</h2>';
 					echo 'Name: '.htmlentities($complain->name).'<br>';
 					echo 'Phone Number: '.htmlentities($complain->phone).'<br>';
+					if($area){
+						echo 'Area: ' . htmlentities($area->name) . '<br>';
+					}
 					echo 'Date: '.htmlentities(strftime("%d-%b-%Y %I:%M %p", strtotime($complain->created))).'<br>';
 					echo 'Complain: <div class="view-content">'.htmlentities($complain->complain).'</div>';
 					echo '<a href="' . SITE_LINK.'admin/delete_complain.php?id=' . urlencode($complain->id) .'" onclick="' . "return confirm('Are you sure?');".'">Delete This Complain</a>';
