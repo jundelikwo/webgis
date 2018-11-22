@@ -14,17 +14,6 @@
             $this->name = $name;
             $this->driverId = $driverId;
         }
-
-        /*protected function create(){
-            global $database;
-
-            $sql = 'INSERT INTO ' . static::$tableName . " (name) VALUES (?)";
-            
-            $smt = $database->connection->prepare($sql);
-            $smt->bindParam(1, $this->name);
-            $smt->execute();
-            $this->id = $database->connection->lastInsertId();
-        }*/
     }
 
 ?>
