@@ -39,7 +39,7 @@ a:hover { color: #1A446C; }
 /* Navigation */
 #navigation { 
 	float: left;
-	width: 150px; height: 100%; 
+	width: 15%; height: 100%; 
 	margin: 0; padding: 0 2em; 
 	color: #D4E6F4; background: #8D0D19;
 }
@@ -54,6 +54,7 @@ ul.pages { padding-left: 2em; list-style: square; font-weight: normal;}
 /* Page Content */
 #page { 
 	float: left; height: 100%;
+	width: 75%;
 	padding-left: 2em; vertical-align: top; 
 	background: #EEE4B9;
 }

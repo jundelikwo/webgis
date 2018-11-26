@@ -16,6 +16,6 @@
             $this->name = $name;
             $this->areaId = $areaId;
         }
-    }
+    }//https://mapcruzin.com/free-nigeria-country-city-place-gis-shapefiles.htm
 
 ?>

@@ -84,10 +84,9 @@
         <div class="row">
           <div class="col-lg-8 mx-auto">
             <h2 class="text-white mb-4">Locate A Bin</h2>
-            <p class="text-white-50">Grayscale is a free Bootstrap theme created by Start Bootstrap. It can be yours right now, simply download the template on. The theme is open source, and you can use it for any purpose, personal or commercial.</p>
           </div>
+          <div style="width:100%;height:550px;background:grey" id="map"></div>
         </div>
-        <img src="img/ipad.png" class="img-fluid" alt="">
       </div>
     </section>
 
@@ -144,7 +143,18 @@
 
     <!-- Custom scripts for this template -->
     <script src="js/grayscale.min.js"></script>
-
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBwO5hLv-bGYpOLUDyeM31YNHQbBRbc4Ak&callback=initMap"
+    type="text/javascript"></script>
+    <script>
+      var map;
+        function initMap() {
+          map = new google.maps.Map(document.getElementById('map'), {
+            center: {lat: 4.9739, lng: 8.3410},
+            zoom: 20,
+            mapTypeId: "hybrid"
+          });
+        }
+    </script>
   </body>
 
 </html>

@@ -45,12 +45,6 @@
 	    	<p>Name:
 		        <input type="text" name="name" value="" required>
 		    </p>
-		    <p>Longitude:
-		        <input type="text" name="longitude" value="" required>
-		    </p>
-		    <p>Latitude:
-		        <input type="text" name="latitude" value="" required>
-		    </p>
 		    <?php
 		    	if(!empty($allAreas)){
 		    ?>
@@ -65,6 +59,13 @@
 		    	</select>
 		    </p>
 		    <?php } ?>
+		    <button id="fetchBtn">Use My Location</button>
+		    <p>Longitude:
+		        <input type="text" name="longitude" id="longitude" value="" required>
+		    </p>
+		    <p>Latitude:
+		        <input type="text" name="latitude" id="latitude" value="" required>
+		    </p>
 		    <input type="submit" name="submit" value="Create Bin">
 	    </form>
 	    <br><a href="manage_bin.php">Cancel</a>
@@ -74,3 +75,55 @@
 <?php
 	require_once LAYOUT_PATH.DS.'footer.php';
 ?>
+
+<script type="text/javascript">
+    var geo;
+
+    function getGeoLocation() {
+        try {
+            if( !! navigator.geolocation ) return navigator.geolocation;
+            else return undefined;
+        } catch(e) {
+            return undefined;
+        }
+    }
+
+    function show_coords(position) {
+        var lat = position.coords.latitude;
+        var lon = position.coords.longitude;
+        document.querySelector('#latitude').value = lat
+        document.querySelector('#longitude').value = lon
+        console.log('position',position)
+    }
+
+    function geo_error(error) {
+        switch(error.code) {
+            case error.TIMEOUT:
+                alert('Geolocation Timeout. Please enter the coordinates manually');
+                break;
+            case error.POSITION_UNAVAILABLE:
+                alert('Geolocation Position unavailable. Please enter the coordinates manually');
+                break;
+            case error.PERMISSION_DENIED:
+                alert('Geolocation Permission denied. Please enter the coordinates manually');
+                break;
+            default:
+                alert('Geolocation returned an unknown error code: ' + error.code + '. Please enter the coordinates manually');
+        }
+    }
+    function init() {
+        if((geo = getGeoLocation())) {
+            geo.getCurrentPosition(show_coords, geo_error);
+        } else {
+            alert('HTML5 Geolocation is not supported in this browser. Please enter the coordinates manually')
+        }
+    }
+
+    window.onload = function() {
+    	document.querySelector('#fetchBtn').addEventListener('click',function(evt){
+    		init();
+    		console.log('geo',geo)
+    		evt.preventDefault()
+    	})
+    }
+</script>
