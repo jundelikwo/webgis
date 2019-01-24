@@ -20,12 +20,9 @@
         $name = $_POST['name'];
         $driver = isset($_POST['driver']) ? $_POST['driver'] : null;
         $driver = empty($driver) ? null : $driver;
-        $newArea = new Area;
-        $newArea->id = $area->id;
-        $newArea->name = $name;
-        $newArea->driverId = $driver;
-        var_dump($newArea);
-        $newArea->save();
+        $area->name = $name;
+        $area->driverId = $driver;
+        $area->save();
         $session->flash('message', 'Area successfully updated');
         header("Location: manage_area.php");
     }
