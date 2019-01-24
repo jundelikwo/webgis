@@ -15,7 +15,7 @@
         $newDriver = new User;
         $newDriver->name = $name;
         $newDriver->username = $username;
-        $newDriver->password = $password;
+        $newDriver->updatePassword($password);
         $newDriver->save();
         $session->flash('message', 'Driver successfully created');
         header("Location: manage_driver.php");
