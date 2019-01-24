@@ -17,16 +17,12 @@
         public $username;
 
         protected function create(){
-            global $session;
             $this->password = password_hash($this->password, PASSWORD_BCRYPT , ["cost" => 10]);
             Parent::create();
         }
 
-        protected function update($msg){
-            global $session;
-            Parent::update($msg);
-            $this->updateProducts();
-            $session->login($this);
+        public function updatePassword($password){
+            $this->password = password_hash($password, PASSWORD_BCRYPT , ["cost" => 10]);
         }
 
         public static function authenticate($username, $password){
