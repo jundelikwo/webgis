@@ -1,6 +1,7 @@
 <?php
   require_once '../includes/config.php';
   require_once LIB_PATH.DS.'Database.php';
+  require_once LIB_PATH.DS.'Session.php';
   require_once LIB_PATH.DS.'Area.php';
 
   if($_SERVER['REQUEST_METHOD'] === "POST"){
@@ -12,8 +13,10 @@
     $newComplain = new Complain($name,$phone,$complain,$area);
     $newComplain->save();
     $link = SITE_LINK;
+    $session->flash('complain', 'Yes');
     header("Location: {$link}");
   }
+  $complain = $session->getFlashValue('complain');
   $allAreas = Area::findAll();
 ?>
 <!DOCTYPE html>
@@ -26,7 +29,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Slyvia WebGIS</title>
+    <title>Sylvia WebGIS</title>
 
     <!-- Bootstrap core CSS -->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -54,7 +57,7 @@
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ml-auto">
             <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="#about">Locate A Bin</a>
+              <a class="nav-link js-scroll-trigger" href="#about">View Map</a>
             </li>
             <li class="nav-item">
               <a class="nav-link js-scroll-trigger" href="#signup">Lay A Complain</a>
@@ -71,9 +74,10 @@
     <header class="masthead">
       <div class="container d-flex h-100 align-items-center">
         <div class="mx-auto text-center">
+          <h2 class="text-success mx-auto mt-2 mb-5" style="font-size: 2rem" id="successMsg"></h2>
           <h1 class="mx-auto my-0 text-uppercase">WebGIS</h1>
           <h2 class="text-white-50 mx-auto mt-2 mb-5">A WebGIS application built with PHP, Bootstrap, Javascript, HTML and CSS.</h2>
-          <a href="#about" class="btn btn-primary js-scroll-trigger">Get Started</a>
+          
         </div>
       </div>
     </header>
@@ -83,7 +87,7 @@
       <div class="container">
         <div class="row">
           <div class="col-lg-8 mx-auto">
-            <h2 class="text-white mb-4">Locate A Bin</h2>
+            <h2 class="text-white mb-4">View Map</h2>
           </div>
           <div style="width:100%;height:550px;background:grey" id="map"></div>
         </div>
@@ -130,7 +134,7 @@
     <!-- Footer -->
     <footer class="bg-black small text-center text-white-50">
       <div class="container">
-        Copyright &copy; Your Website 2018
+        Copyright &copy; Sylvia WebGIS 2018
       </div>
     </footer>
 
@@ -147,13 +151,25 @@
     type="text/javascript"></script>
     <script>
       var map;
-        function initMap() {
-          map = new google.maps.Map(document.getElementById('map'), {
-            center: {lat: 4.9739, lng: 8.3410},
-            zoom: 20,
-            mapTypeId: "hybrid"
-          });
+      function initMap() {
+        map = new google.maps.Map(document.getElementById('map'), {
+          center: {lat: 4.9739, lng: 8.3410},
+          zoom: 20,
+          mapTypeId: "hybrid"
+        });
+      }
+      function showSuccessMsg(){
+        var msg = document.querySelector('#successMsg')
+        msg.innerHTML = 'Complain Submitted'
+        setTimeout(function(){
+          msg.innerHTML = '' 
+        },3000)
+      }
+      <?php
+        if(!empty($complain)){
+          echo 'showSuccessMsg()';
         }
+      ?>
     </script>
   </body>
 

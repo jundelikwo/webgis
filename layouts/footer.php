@@ -1,4 +1,4 @@
-<div id="footer">Copyright <?php echo date("Y");?>, Widget Corp</div>
+<div id="footer">Copyright <?php echo date("Y");?>, Sylvia WebGIS</div>
 	</body>
 </html>
 <?php

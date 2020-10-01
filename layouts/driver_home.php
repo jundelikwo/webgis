@@ -15,7 +15,7 @@
 	}
 ?>
 
-<div style="width:100%;height:450px;background:grey" id="map"></div>
+<div style="width:100%;height:550px;background:grey;margin-top:10px" id="map"></div>
 
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBwO5hLv-bGYpOLUDyeM31YNHQbBRbc4Ak&callback=initMap"
 type="text/javascript"></script>
@@ -37,16 +37,16 @@ type="text/javascript"></script>
 	}
 
 	function calcRoute() {
-	  var start = new google.maps.LatLng(4.9639,8.3510);
+	  var start = new google.maps.LatLng(4.952163,8.351585);
 	  var end = new google.maps.LatLng(4.9739,8.3410);
 	  startMarker = new google.maps.Marker({
-            position: { lat: 4.9639, lng: 8.3510 },
-            label: "start",
+            position: { lat: 4.952163, lng: 8.351585 },
+            label: "You",
             map: map
       });
       endMarker = new google.maps.Marker({
             position: { lat: 4.9739, lng: 8.3410 },
-            label: "End",
+            label: "Dump Site",
             map: map
       });
 	  var request = {

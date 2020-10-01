@@ -56,8 +56,12 @@
 				    ?>
 			        <tr>
 				        <td><?php echo htmlentities($bin->name) ?></td>
-				        <td>&nbsp;<?php echo htmlentities($areas[$bin->areaId]) ?></td>
-				        <td>&nbsp;<a href="view_bin.php?id=<?php echo urlencode($bin->id)?>">View</a></td>
+				        <td>&nbsp;
+				        	<?php 
+				        		echo isset($bin->areaId) ? htmlentities($areas[$bin->areaId]) : 'Not Yet Allocated';
+				        	?>
+				    	</td>
+				        <!--<td>&nbsp;<a href="view_bin.php?id=<?php //echo urlencode($bin->id)?>">View</a></td>-->
 				        <td>&nbsp;<a href="delete_bin.php?id=<?php echo urlencode($bin->id)?>" onclick="return confirm('Are you sure?');">Delete</a></td>
 			      	</tr>
 			    	<?php } } ?>
@@ -68,7 +72,7 @@
 		</div>
 		<div style="clear:both"></div>
 	</div>
- <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBwO5hLv-bGYpOLUDyeM31YNHQbBRbc4Ak&callback=initMap"
+ <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB21v2YPxx7P8exkdxSuZYY8ifRZRf_uHA&callback=initMap"
 type="text/javascript"></script>
 <script>
 	var directionsService
@@ -88,16 +92,16 @@ type="text/javascript"></script>
 	}
 
 	function calcRoute() {
-	  var start = new google.maps.LatLng(4.9639,8.3510);
+	  var start = new google.maps.LatLng(4.952163,8.351585);
 	  var end = new google.maps.LatLng(4.9739,8.3410);
 	  startMarker = new google.maps.Marker({
-            position: { lat: 4.9639, lng: 8.3510 },
-            label: "start",
+            position: { lat: 4.952163, lng: 8.351585 },
+            label: "You",
             map: map
       });
       endMarker = new google.maps.Marker({
             position: { lat: 4.9739, lng: 8.3410 },
-            label: "End",
+            label: "Dump Site",
             map: map
       });
 	  var request = {
@@ -124,7 +128,8 @@ type="text/javascript"></script>
 					$waypoints .= "{ location: new google.maps.LatLng(" . $bin->latitude ."," . $bin->longitude . ") , stopover: true }";
 					$markers .= "new google.maps.Marker({position: {lat: ";
 			        $markers .= $bin->latitude . ', lng:' . $bin->longitude . '},';
-			        $markers .= 'label: "' . htmlentities($bin->name) .'",';
+			        //$markers .= 'label: "' . htmlentities($bin->name) .'",';
+			        $markers .= 'label: "",';
 			        $markers .= 'map: map';
 				    $markers .= "})\n";
 					if($key !== $binsCount-1){

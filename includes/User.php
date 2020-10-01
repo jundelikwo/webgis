@@ -12,14 +12,9 @@
         private $formValidation;
         public $id;
         public $role = "driver";
-        public $password;
+        protected $password;
         public $name;
         public $username;
-
-        protected function create(){
-            $this->password = password_hash($this->password, PASSWORD_BCRYPT , ["cost" => 10]);
-            Parent::create();
-        }
 
         public function updatePassword($password){
             $this->password = password_hash($password, PASSWORD_BCRYPT , ["cost" => 10]);
